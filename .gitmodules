@@ -1,0 +1,6 @@
+[submodule "Dependencies/glfw"]
+	path = Dependencies/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "Dependencies/Equinox"]
+	path = Dependencies/Equinox
+	url = https://github.com/tony942316/Equinox.git
