@@ -6,13 +6,12 @@ export module Eqx.GlfwMod.Mouse;
 
 import Equinox;
 
-export namespace glfwm
+namespace glfwm::mouse
 {
     using namespace eqx::literals;
 
-    class Mouse
+    export
     {
-    public:
         enum class Button : char
         {
             Left = 0,
@@ -27,46 +26,38 @@ export namespace glfwm
             None
         };
 
-        Mouse() = delete;
-        Mouse(const Mouse&) = delete;
-        Mouse(Mouse&&) = delete;
-        Mouse& operator= (const Mouse&) = delete;
-        Mouse& operator= (Mouse&&) = delete;
-        ~Mouse() = delete;
-
-        static inline void moveCallback([[maybe_unused]] GLFWwindow* window,
+        inline void moveCallback([[maybe_unused]] GLFWwindow* window,
             double xpos, double ypos) noexcept;
 
-        static inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
+        inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
             int button, int action, [[maybe_unused]] int mods) noexcept;
 
-        [[nodiscard]] static inline eqx::Point<float> getPosition(
+        [[nodiscard]] inline eqx::Point<float> getPosition(
             Button button = Button::None, State state = State::None) noexcept;
 
-        [[nodiscard]] static inline State getState(Button button) noexcept;
+        [[nodiscard]] inline State getState(Button button) noexcept;
+    }
 
 
-    private:
-        [[nodiscard]] static inline eqx::Point<float>& editButtonPosition(
-            Button button, State state) noexcept;
+    [[nodiscard]] inline eqx::Point<float>& editButtonPosition(
+        Button button, State state) noexcept;
 
-        constinit static inline auto m_Position = eqx::Point<float>{};
-        constinit static inline auto m_ButtonPosition =
-            std::array<eqx::Point<float>, 4_uz>{};
-        constinit static inline auto m_ButtonState = std::array<State, 2_uz>{};
-    };
+    constinit auto m_Position = eqx::Point<float>{};
+    constinit auto m_ButtonPosition =
+        std::array<eqx::Point<float>, 4_uz>{};
+    constinit auto m_ButtonState = std::array<State, 2_uz>{};
 }
 
-namespace glfwm
+namespace glfwm::mouse
 {
-        inline void Mouse::moveCallback([[maybe_unused]] GLFWwindow* window,
+        inline void moveCallback([[maybe_unused]] GLFWwindow* window,
             double xpos, double ypos) noexcept
         {
             m_Position = eqx::Point<float>{static_cast<float>(xpos),
                 static_cast<float>(ypos)};
         }
 
-        inline void Mouse::buttonCallback([[maybe_unused]] GLFWwindow* window,
+        inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
             int button, int action, [[maybe_unused]] int mods) noexcept
         {
             Button myButton = static_cast<Button>(button);
@@ -76,7 +67,7 @@ namespace glfwm
             editButtonPosition(myButton, myState) = getPosition();
         }
 
-        [[nodiscard]] inline eqx::Point<float> Mouse::getPosition(Button button,
+        [[nodiscard]] inline eqx::Point<float> getPosition(Button button,
             State state) noexcept
         {
             return button == Button::None
@@ -84,13 +75,13 @@ namespace glfwm
                 : editButtonPosition(button, state);
         }
 
-        [[nodiscard]] inline Mouse::State Mouse::getState(
+        [[nodiscard]] inline State getState(
             Button button) noexcept
         {
             return m_ButtonState.at(static_cast<std::size_t>(button));
         }
 
-        [[nodiscard]] inline eqx::Point<float>& Mouse::editButtonPosition(
+        [[nodiscard]] inline eqx::Point<float>& editButtonPosition(
             Button button, State state) noexcept
         {
             return m_ButtonPosition.at(static_cast<std::size_t>(
