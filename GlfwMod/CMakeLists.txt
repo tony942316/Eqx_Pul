@@ -4,6 +4,7 @@ add_library(GlfwMod STATIC)
 target_sources(GlfwMod
     PUBLIC FILE_SET CXX_MODULES FILES
         GlfwMod.cpp
+        Keyboard.cpp
         Mouse.cpp
         Window.cpp)
 target_compile_features(GlfwMod PUBLIC cxx_std_20)

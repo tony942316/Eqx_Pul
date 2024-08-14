@@ -11,19 +11,25 @@ namespace glfwm::mouse
 {
     using namespace eqx::literals;
 
+    static_assert(GLFW_RELEASE == 0);
+    static_assert(GLFW_PRESS == 1);
+
+    static_assert(GLFW_MOUSE_BUTTON_LEFT == 0);
+    static_assert(GLFW_MOUSE_BUTTON_RIGHT == 1);
+
     export
     {
         enum class Button : char
         {
-            Left = 0,
-            Right = 1,
+            Left = GLFW_MOUSE_BUTTON_LEFT,
+            Right = GLFW_MOUSE_BUTTON_RIGHT,
             None
         };
 
         enum class State : char
         {
-            Up = 0,
-            Down = 1,
+            Up = GLFW_RELEASE,
+            Down = GLFW_PRESS,
             None
         };
 
@@ -48,7 +54,7 @@ namespace glfwm::mouse
         std::array<eqx::Point<float>, 4_uz>{};
 #if EQX_MSVC
     constinit auto m_ButtonState =
-        std::invoke([]() constexpr { return std::array<State, 2_uz>{}; };
+        std::invoke([]() constexpr { return std::array<State, 2_uz>{}; });
 #else
     constinit auto m_ButtonState = std::array<State, 2_uz>{};
 #endif // EQX_MSVC

@@ -28,6 +28,9 @@ export namespace glfwm
         inline void setMouseButtonCallback(
             void (*callback)(GLFWwindow*, int, int, int)) noexcept;
 
+        inline void setKeyboardButtonCallback(
+            void (*callback)(GLFWwindow*, int, int ,int, int)) noexcept;
+
         inline void run(const std::function<void(void)>& func) noexcept;
 
         inline void setName(std::string_view name) noexcept;
@@ -97,6 +100,12 @@ namespace glfwm
         void (*callback)(GLFWwindow*, int, int, int)) noexcept
     {
         glfwSetMouseButtonCallback(m_Window, callback);
+    }
+
+    inline void Window::setKeyboardButtonCallback(
+        void (*callback)(GLFWwindow*, int, int ,int, int)) noexcept
+    {
+        glfwSetKeyCallback(m_Window, callback);
     }
 
     inline void Window::run(const std::function<void(void)>& func) noexcept
