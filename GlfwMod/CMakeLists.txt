@@ -12,4 +12,5 @@ set_target_properties(GlfwMod PROPERTIES
     CXX_STANDARD_REQUIRED On
     CXX_EXTENSIONS Off
     EXPORT_COMPILE_COMMANDS On)
-target_link_libraries(GlfwMod PRIVATE glfw EquinoxMod)
+target_link_libraries(GlfwMod PRIVATE glfw glad EquinoxMod)
+target_link_libraries(GlfwMod PUBLIC GMF)

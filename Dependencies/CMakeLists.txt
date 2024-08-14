@@ -5,4 +5,7 @@ set(GLFW_BUILD_TESTS Off CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES Off CACHE BOOL "" FORCE)
 add_subdirectory(glfw)
 
+add_library(glad STATIC glad/src/glad.c)
+target_include_directories(glad PUBLIC glad/include)
+
 add_subdirectory(Equinox)
