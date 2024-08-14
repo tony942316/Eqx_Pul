@@ -1,6 +1,7 @@
 module;
 
 #include <GLFW/glfw3.h>
+#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.Mouse;
 
@@ -45,7 +46,12 @@ namespace glfwm::mouse
     constinit auto m_Position = eqx::Point<float>{};
     constinit auto m_ButtonPosition =
         std::array<eqx::Point<float>, 4_uz>{};
+#if EQX_MSVC
+    constinit auto m_ButtonState =
+        std::invoke([]() constexpr { return std::array<State, 2_uz>{}; };
+#else
     constinit auto m_ButtonState = std::array<State, 2_uz>{};
+#endif // EQX_MSVC
 }
 
 namespace glfwm::mouse
