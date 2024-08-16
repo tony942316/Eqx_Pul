@@ -6,6 +6,7 @@ target_sources(GlfwMod
         GlfwMod.cpp
         Keyboard.cpp
         Mouse.cpp
+        Shader.cpp
         Window.cpp)
 target_compile_features(GlfwMod PUBLIC cxx_std_20)
 set_target_properties(GlfwMod PROPERTIES
