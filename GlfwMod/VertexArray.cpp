@@ -52,9 +52,9 @@ namespace glfwm
         for (int i = 0; i < std::ranges::size(attribs); i++)
         {
             glEnableVertexAttribArray(i);
-            glVertexAttribPointer(i, attribs.at(i), GL_FLOAT, GL_FALSE,
+            glVertexAttribPointer(i, attribs[i], GL_FLOAT, GL_FALSE,
                 vertexSize, (void*)(runningCount * sizeof(float)));
-            runningCount += attribs.at(i);
+            runningCount += attribs[i];
         }
 
         glBindBuffer(GL_ARRAY_BUFFER, 0U);
