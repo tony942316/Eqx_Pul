@@ -7,6 +7,7 @@ target_sources(GlfwMod
         Keyboard.cpp
         Mouse.cpp
         Shader.cpp
+        VertexArray.cpp
         Window.cpp)
 target_compile_features(GlfwMod PUBLIC cxx_std_20)
 set_target_properties(GlfwMod PROPERTIES

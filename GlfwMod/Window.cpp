@@ -9,6 +9,7 @@ export module Eqx.GlfwMod.Window;
 import Equinox;
 
 import Eqx.GlfwMod.Shader;
+import Eqx.GlfwMod.VertexArray;
 
 export namespace glfwm
 {
@@ -134,37 +135,26 @@ namespace glfwm
             << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << '\n';
 
         auto shader = Shader::parse(
-            "/home/anthony/C++/glfwMod/ProvingGrounds/Shaders/Basic/vs.glsl"sv,
-            "/home/anthony/C++/glfwMod/ProvingGrounds/Shaders/Basic/fs.glsl"sv);
+            "Resources/Shaders/Basic/vs.glsl"sv,
+            "Resources/Shaders/Basic/fs.glsl"sv);
 
-        float vertices[] = {
+        auto vertices = std::array<float, 12>{
             0.5f, 0.5f, 0.0f,
             0.5f, -0.5f, 0.0f,
             -0.5f, -0.5f, 0.0f,
             -0.5f, 0.5f, 0.0f
         };
-        unsigned int indices[] = {
+        auto indices = std::array<unsigned int, 6>{
             0, 1, 3,
             1, 2, 3
         };
+        auto attr = std::array<unsigned int, 1>{3};
 
-        unsigned int VBO, VAO, EBO;
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
+        auto va = VertexArray{ attr };
+        va.addVertices(vertices);
+        va.addIndices(indices);
 
-        glBindVertexArray(VAO);
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
-        glBindVertexArray(0);
+        std::cout << "Error Num: " << glGetError() << '\n';
 
         while (!glfwWindowShouldClose(m_Window))
         {
@@ -173,7 +163,7 @@ namespace glfwm
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             shader.enable();
-            glBindVertexArray(VAO);
+            va.enable();
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
             glfwSwapBuffers(m_Window);
