@@ -14,7 +14,7 @@ target_link_libraries(ProvingGrounds PRIVATE GlfwMod EquinoxMod)
 add_custom_command(TARGET ProvingGrounds PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/Resources
-        $<TARGET_FILE_DIR:ProvingGrounds>
+        $<TARGET_FILE_DIR:ProvingGrounds>/Resources
     COMMENT "Copying Resources!")
 
 add_custom_command(TARGET ProvingGrounds PRE_BUILD
