@@ -8,8 +8,8 @@ export module Eqx.GlfwMod.Window;
 
 import Equinox;
 
-import Eqx.GlfwMod.Shader;
-import Eqx.GlfwMod.VertexArray;
+import Eqx.GlfwMod.Mouse;
+import Eqx.GlfwMod.Keyboard;
 
 export namespace glfwm
 {
@@ -35,6 +35,8 @@ export namespace glfwm
 
         inline void setKeyboardButtonCallback(
             void (*callback)(GLFWwindow*, int, int ,int, int)) noexcept;
+
+        inline void makeCurrent() noexcept;
 
         inline void run(const std::function<void(void)>& func) noexcept;
 
@@ -117,7 +119,7 @@ namespace glfwm
         glfwSetKeyCallback(m_Window, callback);
     }
 
-    inline void Window::run(const std::function<void(void)>& func) noexcept
+    inline void Window::makeCurrent() noexcept
     {
         glfwMakeContextCurrent(m_Window);
         glfwSwapInterval(1);
@@ -134,37 +136,21 @@ namespace glfwm
         std::cout << "Max Textures: "sv
             << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << '\n';
 
-        auto shader = Shader::parse(
-            "Resources/Shaders/Basic/vs.glsl"sv,
-            "Resources/Shaders/Basic/fs.glsl"sv);
+        setMouseMoveCallback(glfwm::mouse::moveCallback);
+        setMouseButtonCallback(glfwm::mouse::buttonCallback);
+        setKeyboardButtonCallback(glfwm::keyboard::buttonCallback);
+    }
 
-        auto vertices = std::array<float, 12>{
-            0.5f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f,
-            -0.5f, 0.5f, 0.0f
-        };
-        auto indices = std::array<unsigned int, 6>{
-            0, 1, 3,
-            1, 2, 3
-        };
-        auto attr = std::array<unsigned int, 1>{3};
-
-        auto va = VertexArray{ attr };
-        va.addVertices(vertices);
-        va.addIndices(indices);
+    inline void Window::run(const std::function<void(void)>& func) noexcept
+    {
 
         std::cout << "Error Num: " << glGetError() << '\n';
 
         while (!glfwWindowShouldClose(m_Window))
         {
-            std::invoke(func);
-
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            shader.enable();
-            va.enable();
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            std::invoke(func);
 
             glfwSwapBuffers(m_Window);
             glfwPollEvents();

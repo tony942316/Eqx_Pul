@@ -134,6 +134,11 @@ namespace glfwm
     inline Shader Shader::parse(std::string_view vsPath,
         std::string_view fsPath) noexcept
     {
+        eqx::ENSURE_HARD(std::filesystem::exists(vsPath),
+            "Vertex Shader Doesn't Exist!!!"sv);
+        eqx::ENSURE_HARD(std::filesystem::exists(fsPath),
+            "Fragment Shader Doesn't Exist!!!"sv);
+
         auto vsFile = std::ifstream{vsPath.data(), std::ios::in};
         auto fsFile = std::ifstream{fsPath.data(), std::ios::in};
 

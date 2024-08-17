@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.28)
 
 message(STATUS "glfwMod: Proving Grounds")
 
+add_subdirectory(Tests)
+
 add_executable(ProvingGrounds)
 target_sources(ProvingGrounds PRIVATE Main.cpp)
 target_compile_features(ProvingGrounds PRIVATE cxx_std_20)
@@ -9,7 +11,7 @@ set_target_properties(ProvingGrounds PROPERTIES
     CXX_STANDARD_REQUIRED On
     CXX_EXTENSIONS Off
     EXPORT_COMPILE_COMMANDS On)
-target_link_libraries(ProvingGrounds PRIVATE GlfwMod EquinoxMod)
+target_link_libraries(ProvingGrounds PRIVATE GlfwModTests GlfwMod EquinoxMod)
 
 add_custom_command(TARGET ProvingGrounds PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -17,6 +19,6 @@ add_custom_command(TARGET ProvingGrounds PRE_BUILD
         $<TARGET_FILE_DIR:ProvingGrounds>/Resources
     COMMENT "Copying Resources!")
 
-add_custom_command(TARGET ProvingGrounds PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E echo "Genxpr: $<TARGET_FILE_DIR:ProvingGrounds>"
-    COMMENT "Printing Generator Expression")
+#add_custom_command(TARGET ProvingGrounds PRE_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E echo "Genxpr: $<TARGET_FILE_DIR:ProvingGrounds>"
+#    COMMENT "Printing Generator Expression")

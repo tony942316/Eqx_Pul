@@ -6,6 +6,7 @@ target_sources(GlfwMod
         GlfwMod.cpp
         Keyboard.cpp
         Mouse.cpp
+        Renderer.cpp
         Shader.cpp
         VertexArray.cpp
         Window.cpp)

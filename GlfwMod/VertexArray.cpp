@@ -21,7 +21,9 @@ export namespace glfwm
         VertexArray& operator= (const VertexArray&) = delete;
 
         inline void addVertices(std::span<float> vertices) const noexcept;
-        inline void addIndices(std::span<unsigned int> indices) const noexcept;
+        inline void addIndices(std::span<unsigned int> indices) noexcept;
+
+        inline std::size_t getIndexCount() const noexcept;
 
         inline void enable() const noexcept;
         inline void disable() const noexcept;
@@ -30,6 +32,7 @@ export namespace glfwm
         unsigned int m_VA;
         unsigned int m_VB;
         unsigned int m_EB;
+        std::size_t m_EBCount;
     };
 }
 
@@ -105,12 +108,18 @@ namespace glfwm
     }
 
     inline void VertexArray::addIndices(
-        std::span<unsigned int> indices) const noexcept
+        std::span<unsigned int> indices) noexcept
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EB);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,
             std::ranges::size(indices) * sizeof(unsigned int), indices.data(),
             GL_STATIC_DRAW);
+        m_EBCount = std::ranges::size(indices);
+    }
+
+    inline std::size_t VertexArray::getIndexCount() const noexcept
+    {
+        return m_EBCount;
     }
 
     inline void VertexArray::enable() const noexcept
