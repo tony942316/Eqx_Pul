@@ -4,7 +4,8 @@ add_library(GlfwModTests STATIC)
 target_sources(GlfwModTests
     PUBLIC FILE_SET CXX_MODULES FILES
         Tests.cpp
-        Basic.cpp)
+        Basic.cpp
+        Texture.cpp)
 target_compile_features(GlfwModTests PUBLIC cxx_std_20)
 target_link_libraries(GlfwModTests PRIVATE GlfwMod EquinoxMod)
 

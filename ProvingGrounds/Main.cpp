@@ -1,5 +1,4 @@
 import Equinox;
-import Eqx.GlfwMod;
 
 import GlfwMod.Tests;
 

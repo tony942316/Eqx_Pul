@@ -8,6 +8,7 @@ target_sources(GlfwMod
         Mouse.cpp
         Renderer.cpp
         Shader.cpp
+        Texture.cpp
         VertexArray.cpp
         Window.cpp)
 target_compile_features(GlfwMod PUBLIC cxx_std_20)
@@ -15,5 +16,5 @@ set_target_properties(GlfwMod PROPERTIES
     CXX_STANDARD_REQUIRED On
     CXX_EXTENSIONS Off
     EXPORT_COMPILE_COMMANDS On)
-target_link_libraries(GlfwMod PRIVATE glfw glad EquinoxMod)
+target_link_libraries(GlfwMod PRIVATE glfw glad stbim EquinoxMod)
 target_link_libraries(GlfwMod PUBLIC GMF)

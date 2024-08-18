@@ -4,12 +4,14 @@ import Equinox;
 import Eqx.GlfwMod;
 
 import GlfwMod.Tests.Basic;
+import GlfwMod.Tests.Texture;
 
 namespace glfwmod::tests
 {
     enum class State : char
     {
         Basic,
+        Texture,
         None
     };
 
@@ -29,6 +31,7 @@ namespace glfwmod::tests
         m_Window->makeCurrent();
 
         glfwmod::tests::basic::init();
+        glfwmod::tests::texture::init();
 
         m_Window->run([]()
         {
@@ -39,6 +42,10 @@ namespace glfwmod::tests
             else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N1))
             {
                 m_State = State::Basic;
+            }
+            else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N2))
+            {
+                m_State = State::Texture;
             }
             else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::Escape))
             {
@@ -53,12 +60,16 @@ namespace glfwmod::tests
             case State::Basic:
                 glfwmod::tests::basic::run(m_Window.value());
                 break;
+            case State::Texture:
+                glfwmod::tests::texture::run();
+                break;
             default:
                 break;
             }
         });
 
         glfwmod::tests::basic::term();
+        glfwmod::tests::texture::term();
         m_Window.reset();
         glfwm::Window::term();
     }
