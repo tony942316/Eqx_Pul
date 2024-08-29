@@ -1,11 +1,16 @@
 module;
 
 #include <glad/glad.h>
-#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.Shader;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import <Eqx/Lib/Macros.hpp>;
+import Eqx.Lib;
+
+import <glm/glm.hpp>;
+import <glm/gtc/type_ptr.hpp>;
 
 export namespace glfwm
 {
@@ -26,6 +31,8 @@ export namespace glfwm
 
         inline void setInt(std::string_view name, int value) const noexcept;
         inline void setFloat(std::string_view name, float value) const noexcept;
+        inline void setMat4(std::string_view name,
+            const glm::mat4& mat) const noexcept;
 
         static inline Shader parse(std::string_view vsPath,
                 std::string_view fsPath) noexcept;
@@ -128,6 +135,15 @@ namespace glfwm
     {
         enable();
         glUniform1f(glGetUniformLocation(m_Shader, name.data()), value);
+        disable();
+    }
+
+    inline void Shader::setMat4(std::string_view name,
+        const glm::mat4& mat) const noexcept
+    {
+        enable();
+        glUniformMatrix4fv(glGetUniformLocation(m_Shader, name.data()),
+            1, false, glm::value_ptr(mat));
         disable();
     }
 

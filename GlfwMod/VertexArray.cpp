@@ -1,11 +1,13 @@
 module;
 
 #include <glad/glad.h>
-#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.VertexArray;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import <Eqx/Lib/Macros.hpp>;
+import Eqx.Lib;
 
 export namespace glfwm
 {

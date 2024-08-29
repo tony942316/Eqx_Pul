@@ -4,6 +4,7 @@ add_library(GlfwMod STATIC)
 target_sources(GlfwMod
     PUBLIC FILE_SET CXX_MODULES FILES
         GlfwMod.cpp
+        CQuad.cpp
         Keyboard.cpp
         Mouse.cpp
         Renderer.cpp
@@ -17,4 +18,4 @@ set_target_properties(GlfwMod PROPERTIES
     CXX_EXTENSIONS Off
     EXPORT_COMPILE_COMMANDS On)
 target_link_libraries(GlfwMod PRIVATE glfw glad stbim EquinoxMod)
-target_link_libraries(GlfwMod PUBLIC GMF)
+target_link_libraries(GlfwMod PUBLIC GMF HUglm)

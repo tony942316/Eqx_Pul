@@ -1,11 +1,14 @@
 module;
 
 #include <GLFW/glfw3.h>
-#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.Mouse;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import <Eqx/Lib/Macros.hpp>;
+import Eqx.Lib;
+
 
 namespace glfwm::mouse
 {

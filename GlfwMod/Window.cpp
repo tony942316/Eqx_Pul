@@ -2,14 +2,20 @@ module;
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.Window;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import <Eqx/Lib/Macros.hpp>;
+import Eqx.Lib;
+
+import <glm/glm.hpp>;
+import <glm/gtc/matrix_transform.hpp>;
 
 import Eqx.GlfwMod.Mouse;
 import Eqx.GlfwMod.Keyboard;
+import Eqx.GlfwMod.Shader;
 
 export namespace glfwm
 {
@@ -38,11 +44,20 @@ export namespace glfwm
 
         inline void makeCurrent() noexcept;
 
-        inline void run(const std::function<void(void)>& func) noexcept;
+        template <typename T>
+            requires requires(const T& f) { std::invoke(f); }
+        inline void run(const T& func) noexcept;
 
         inline void setName(std::string_view name) noexcept;
 
         inline void close() noexcept;
+
+        inline void setOrtho(std::string_view name,
+            const Shader& shader) const noexcept;
+
+        [[nodiscard]] inline int getWidth() const noexcept;
+
+        [[nodiscard]] inline int getHeight() const noexcept;
 
         static inline void init() noexcept;
 
@@ -141,7 +156,9 @@ namespace glfwm
         setKeyboardButtonCallback(glfwm::keyboard::buttonCallback);
     }
 
-    inline void Window::run(const std::function<void(void)>& func) noexcept
+    template <typename T>
+        requires requires(const T& f) { std::invoke(f); }
+    inline void Window::run(const T& func) noexcept
     {
 
         std::cout << "Error Num: " << glGetError() << '\n';
@@ -166,6 +183,25 @@ namespace glfwm
     inline void Window::close() noexcept
     {
         glfwSetWindowShouldClose(m_Window, GLFW_TRUE);
+    }
+
+    inline void Window::setOrtho(std::string_view name,
+        const Shader& shader) const noexcept
+    {
+        shader.setMat4(name, glm::ortho(
+            0.0f, static_cast<float>(m_Width),
+            0.0f, static_cast<float>(m_Height),
+            -1.0f, 100.0f));
+    }
+
+    [[nodiscard]] inline int Window::getWidth() const noexcept
+    {
+        return m_Width;
+    }
+
+    [[nodiscard]] inline int Window::getHeight() const noexcept
+    {
+        return m_Height;
     }
 
     inline void Window::init() noexcept

@@ -1,6 +1,8 @@
 export module GlfwMod.Tests.Basic;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import Eqx.Lib;
 import Eqx.GlfwMod;
 
 namespace glfwmod::tests::basic

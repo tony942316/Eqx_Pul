@@ -1,6 +1,8 @@
 export module GlfwMod.Tests.Texture;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import Eqx.Lib;
 import Eqx.GlfwMod;
 
 namespace glfwmod::tests::texture
@@ -18,9 +20,8 @@ namespace glfwmod::tests::texture
 {
     inline void run() noexcept
     {
-        glfwm::Texture::enableSlot(0U);
-        m_Texture->enable();
-        glfwm::renderer::draw(m_Shader.value(), m_Vertices.value());
+        glfwm::renderer::draw(m_Shader.value(), m_Vertices.value(),
+            m_Texture.value());
     }
 
     inline void init() noexcept
@@ -47,7 +48,7 @@ namespace glfwmod::tests::texture
             "Resources/Shaders/Texture/vs.glsl"sv,
             "Resources/Shaders/Texture/fs.glsl"sv));
 
-        m_Shader->setInt("texture0", 0);
+        m_Shader->setInt("texture0"sv, 0);
 
         m_Texture.emplace("Resources/Textures/BrickWall.png"sv);
     }

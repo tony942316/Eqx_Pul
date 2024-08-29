@@ -1,14 +1,21 @@
 module;
 
 #include <glad/glad.h>
-#include <Equinox/Macros.hpp>
 
 export module Eqx.GlfwMod.Renderer;
 
-import Equinox;
+import <Eqx/std.hpp>;
 
+import <Eqx/Lib/Macros.hpp>;
+import Eqx.Lib;
+
+import <glm/glm.hpp>;
+
+import Eqx.GlfwMod.Window;
 import Eqx.GlfwMod.Shader;
 import Eqx.GlfwMod.VertexArray;
+import Eqx.GlfwMod.Texture;
+import Eqx.GlfwMod.CQuad;
 
 export namespace glfwm::renderer
 {
@@ -16,6 +23,11 @@ export namespace glfwm::renderer
 
     inline void draw(const Shader& shader,
         const VertexArray& vertexArray) noexcept;
+
+    inline void draw(const Shader& shader, const VertexArray& vertexArray,
+        const Texture& texture) noexcept;
+
+    inline void draw(const Shader& shader, const CQuad& quad) noexcept;
 }
 
 namespace glfwm::renderer
@@ -29,5 +41,74 @@ namespace glfwm::renderer
         glDrawElements(GL_TRIANGLES,
             static_cast<int>(vertexArray.getIndexCount()),
             GL_UNSIGNED_INT, 0);
+    }
+
+    inline void draw(const Shader& shader, const VertexArray& vertexArray,
+        const Texture& texture) noexcept
+    {
+        glfwm::Texture::enableSlot(0U);
+        texture.enable();
+
+        shader.enable();
+        vertexArray.enable();
+
+        glDrawElements(GL_TRIANGLES,
+            static_cast<int>(vertexArray.getIndexCount()),
+            GL_UNSIGNED_INT, 0);
+    }
+
+    inline void draw(const Shader& shader, const CQuad& quad) noexcept
+    {
+        auto vertices = std::array<float, 24>{
+            0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
+            -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f
+        };
+
+        vertices.at(0_uz) = quad.getRect().getTopLeftPoint().x;
+        vertices.at(1_uz) = quad.getRect().getTopLeftPoint().y;
+        vertices.at(2_uz) = quad.getZ();
+
+        vertices.at(3_uz) = static_cast<float>(quad.getColor().r);
+        vertices.at(4_uz) = static_cast<float>(quad.getColor().g);
+        vertices.at(5_uz) = static_cast<float>(quad.getColor().b);
+
+        vertices.at(6_uz) = quad.getRect().getTopRightPoint().x;
+        vertices.at(7_uz) = quad.getRect().getTopRightPoint().y;
+        vertices.at(8_uz) = quad.getZ();
+
+        vertices.at(9_uz) = static_cast<float>(quad.getColor().r);
+        vertices.at(10_uz) = static_cast<float>(quad.getColor().g);
+        vertices.at(11_uz) = static_cast<float>(quad.getColor().b);
+
+        vertices.at(12_uz) = quad.getRect().getBottomRightPoint().x;
+        vertices.at(13_uz) = quad.getRect().getBottomRightPoint().y;
+        vertices.at(14_uz) = quad.getZ();
+
+        vertices.at(15_uz) = static_cast<float>(quad.getColor().r);
+        vertices.at(16_uz) = static_cast<float>(quad.getColor().g);
+        vertices.at(17_uz) = static_cast<float>(quad.getColor().b);
+
+        vertices.at(18_uz) = quad.getRect().getBottomLeftPoint().x;
+        vertices.at(19_uz) = quad.getRect().getBottomLeftPoint().y;
+        vertices.at(20_uz) = quad.getZ();
+
+        vertices.at(21_uz) = static_cast<float>(quad.getColor().r);
+        vertices.at(22_uz) = static_cast<float>(quad.getColor().g);
+        vertices.at(23_uz) = static_cast<float>(quad.getColor().b);
+
+        auto indices = std::array<unsigned int, 6>{
+            0U, 1U, 2U,
+            0U, 2U, 3U
+        };
+
+        auto attr = std::array<unsigned int, 2>{3, 3};
+
+        auto va = VertexArray{attr};
+        va.addVertices(vertices);
+        va.addIndices(indices);
+
+        draw(shader, va);
     }
 }

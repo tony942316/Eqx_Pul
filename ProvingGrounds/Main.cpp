@@ -1,4 +1,6 @@
-import Equinox;
+import <Eqx/std.hpp>;
+
+import Eqx.Lib;
 
 import GlfwMod.Tests;
 

@@ -1,10 +1,14 @@
 export module GlfwMod.Tests;
 
-import Equinox;
+import <Eqx/std.hpp>;
+
+import Eqx.Lib;
 import Eqx.GlfwMod;
 
 import GlfwMod.Tests.Basic;
 import GlfwMod.Tests.Texture;
+import GlfwMod.Tests.MVP;
+import GlfwMod.Tests.CQuad;
 
 namespace glfwmod::tests
 {
@@ -12,6 +16,8 @@ namespace glfwmod::tests
     {
         Basic,
         Texture,
+        MVP,
+        CQuad,
         None
     };
 
@@ -27,11 +33,13 @@ namespace glfwmod::tests
     {
         glfwm::Window::init();
 
-        m_Window.emplace(640, 480, "Glfwm Proving Grounds"sv);
+        m_Window.emplace(680, 400, "Glfwm Proving Grounds"sv);
         m_Window->makeCurrent();
 
         glfwmod::tests::basic::init();
         glfwmod::tests::texture::init();
+        glfwmod::tests::mvp::init();
+        glfwmod::tests::cquad::init(m_Window.value());
 
         m_Window->run([]()
         {
@@ -46,6 +54,14 @@ namespace glfwmod::tests
             else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N2))
             {
                 m_State = State::Texture;
+            }
+            else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N3))
+            {
+                m_State = State::MVP;
+            }
+            else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N4))
+            {
+                m_State = State::CQuad;
             }
             else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::Escape))
             {
@@ -63,6 +79,12 @@ namespace glfwmod::tests
             case State::Texture:
                 glfwmod::tests::texture::run();
                 break;
+            case State::MVP:
+                glfwmod::tests::mvp::run();
+                break;
+            case State::CQuad:
+                glfwmod::tests::cquad::run();
+                break;
             default:
                 break;
             }
@@ -70,9 +92,9 @@ namespace glfwmod::tests
 
         glfwmod::tests::basic::term();
         glfwmod::tests::texture::term();
+        glfwmod::tests::mvp::term();
+        glfwmod::tests::cquad::term();
         m_Window.reset();
         glfwm::Window::term();
     }
-
-
 }
