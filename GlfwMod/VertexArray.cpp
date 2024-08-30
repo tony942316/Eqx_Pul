@@ -1,10 +1,8 @@
-module;
-
-#include <glad/glad.h>
-
 export module Eqx.GlfwMod.VertexArray;
 
 import <Eqx/std.hpp>;
+
+import <Eqx/TPL/glad/glad.hpp>;
 
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;

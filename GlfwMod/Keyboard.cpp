@@ -1,10 +1,8 @@
-module;
-
-#include <GLFW/glfw3.h>
-
 export module Eqx.GlfwMod.Keyboard;
 
 import <Eqx/std.hpp>;
+
+import <Eqx/TPL/glfw/glfw.hpp>;
 
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;

@@ -1,6 +1,8 @@
-[submodule "Dependencies/Equinox"]
-	path = Dependencies/Equinox
-	url = https://github.com/tony942316/Equinox.git
-[submodule "Dependencies/glm"]
-	path = Dependencies/glm
-	url = https://github.com/g-truc/glm.git
+[submodule "Dependencies/Eqx_Lib"]
+	path = Dependencies/Eqx_Lib
+	url = https://github.com/tony942316/Eqx_Lib.git
+	branch = main
+[submodule "Dependencies/Eqx_TPL"]
+	path = Dependencies/Eqx_TPL
+	url = https://github.com/tony942316/Eqx_TPL.git
+	branch = main

@@ -1,16 +1,12 @@
-module;
-
-#include <glad/glad.h>
-
 export module Eqx.GlfwMod.CQuad;
 
 import <Eqx/std.hpp>;
 
+import <Eqx/TPL/glad/glad.hpp>;
+import <Eqx/TPL/glm/glm.hpp>;
+
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
-
-import <glm/glm.hpp>;
-import Eqx.GlfwMod.VertexArray;
 
 export namespace glfwm
 {

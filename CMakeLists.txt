@@ -5,9 +5,9 @@ project(GlfwMod
     DESCRIPTION "glfw As C++20 Modules"
     LANGUAGES C CXX)
 
-add_subdirectory(Dependencies)
-add_subdirectory(GlfwMod)
+add_subdirectory(Dependencies/)
+add_subdirectory(GlfwMod/)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    add_subdirectory(ProvingGrounds)
+    add_subdirectory(ProvingGrounds/)
 endif()

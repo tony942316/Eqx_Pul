@@ -1,15 +1,12 @@
-module;
-
-#include <glad/glad.h>
-
 export module Eqx.GlfwMod.Texture;
 
 import <Eqx/std.hpp>;
 
+import <Eqx/TPL/glad/glad.hpp>;
+import <Eqx/TPL/stb/stb_image.hpp>;
+
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
-
-import Eqx.Stbim;
 
 export namespace glfwm
 {
@@ -52,15 +49,15 @@ namespace glfwm
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         int width, height, nrChannels;
-        stbim::vertical_flip(true);
-        unsigned char* data = stbim::load(texPath.data(), &width, &height,
-            &nrChannels);
+        stbi_set_flip_vertically_on_load(true);
+        unsigned char* data = stbi_load(texPath.data(), &width, &height,
+            &nrChannels, 0);
         eqx::ENSURE_HARD(data != nullptr,
             "Failed To Load Texture:"s + std::string{texPath});
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA,
             GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
-        stbim::free(data);
+        stbi_image_free(data);
     }
 
     inline Texture::Texture(Texture&& other) noexcept

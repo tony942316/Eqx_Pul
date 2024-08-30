@@ -2,10 +2,9 @@ export module GlfwMod.Tests.MVP;
 
 import <Eqx/std.hpp>;
 
-import Eqx.Lib;
+import <Eqx/TPL/glm/glm.hpp>;
 
-import <glm/glm.hpp>;
-import <glm/gtc/matrix_transform.hpp>;
+import Eqx.Lib;
 
 import Eqx.GlfwMod;
 
@@ -13,10 +12,10 @@ namespace glfwmod::tests::mvp
 {
     constinit auto m_Shader = std::optional<glfwm::Shader>{};
     constinit auto m_Vertices = std::optional<glfwm::VertexArray>{};
-    constinit auto m_Texture = std::optional<glfwm::Texture>{};
+    constinit auto m_Model = glm::mat4(1.0f);
 
     export inline void run() noexcept;
-    export inline void init() noexcept;
+    export inline void init(const glfwm::Window& window) noexcept;
     export inline void term() noexcept;
 }
 
@@ -25,9 +24,12 @@ namespace glfwmod::tests::mvp
     inline void run() noexcept
     {
         glfwm::renderer::draw(m_Shader.value(), m_Vertices.value());
+        m_Model = glm::rotate(m_Model, glm::radians(1.0f),
+            glm::vec3(1.0, 0.3, 0.5));
+        m_Shader->setMat4("u_Model"sv, m_Model);
     }
 
-    inline void init() noexcept
+    inline void init(const glfwm::Window& window) noexcept
     {
         auto vertices = std::vector<float>{{
             -0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,
@@ -69,24 +71,21 @@ namespace glfwmod::tests::mvp
             "Resources/Shaders/MVP/vs.glsl"sv,
             "Resources/Shaders/MVP/fs.glsl"sv));
 
-        auto view = glm::mat4(1.0f);
-        auto proj = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        proj = glm::perspective(1.5708f, 680.0f / 400.0f , 0.1f, 1000.0f);
+        auto view = glm::translate(glm::mat4(1.0f),
+            glm::vec3(0.0f, 0.0f, -3.0f));
+        auto proj = glm::perspective(glm::radians(45.0f),
+            static_cast<float>(window.getWidth())
+                / static_cast<float>(window.getHeight()),
+            0.1f, 1000.0f);
 
-        //m_Shader->setMat4("u_Model"sv, );
+        m_Shader->setMat4("u_Model"sv, m_Model);
         m_Shader->setMat4("u_View"sv, view);
         m_Shader->setMat4("u_Projection"sv, proj);
-
-        //m_Shader->setInt("texture0"sv, 0);
-
-        m_Texture.emplace("Resources/Textures/BrickWall.png"sv);
     }
 
     inline void term() noexcept
     {
         m_Shader.reset();
         m_Vertices.reset();
-        m_Texture.reset();
     }
 }

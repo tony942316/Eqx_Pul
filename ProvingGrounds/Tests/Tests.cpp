@@ -9,6 +9,8 @@ import GlfwMod.Tests.Basic;
 import GlfwMod.Tests.Texture;
 import GlfwMod.Tests.MVP;
 import GlfwMod.Tests.CQuad;
+import GlfwMod.Tests.TxQuad;
+import GlfwMod.Tests.BreakOut;
 
 namespace glfwmod::tests
 {
@@ -18,6 +20,8 @@ namespace glfwmod::tests
         Texture,
         MVP,
         CQuad,
+        TxQuad,
+        BreakOut,
         None
     };
 
@@ -38,11 +42,15 @@ namespace glfwmod::tests
 
         glfwmod::tests::basic::init();
         glfwmod::tests::texture::init();
-        glfwmod::tests::mvp::init();
+        glfwmod::tests::mvp::init(m_Window.value());
         glfwmod::tests::cquad::init(m_Window.value());
+        glfwmod::tests::txquad::init(m_Window.value());
+        glfwmod::tests::breakout::init(m_Window.value());
 
         m_Window->run([]()
         {
+            m_Window->setName("Glfwm Proving Grounds"sv);
+
             if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N0))
             {
                 m_State = State::None;
@@ -63,6 +71,14 @@ namespace glfwmod::tests
             {
                 m_State = State::CQuad;
             }
+            else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N5))
+            {
+                m_State = State::TxQuad;
+            }
+            else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::N6))
+            {
+                m_State = State::BreakOut;
+            }
             else if (glfwm::keyboard::isPressed(glfwm::keyboard::Key::Escape))
             {
                 m_Window->close();
@@ -71,7 +87,6 @@ namespace glfwmod::tests
             switch (m_State)
             {
             case State::None:
-                m_Window->setName("Glfwm Proving Grounds"sv);
                 break;
             case State::Basic:
                 glfwmod::tests::basic::run(m_Window.value());
@@ -83,7 +98,13 @@ namespace glfwmod::tests
                 glfwmod::tests::mvp::run();
                 break;
             case State::CQuad:
-                glfwmod::tests::cquad::run();
+                glfwmod::tests::cquad::run(m_Window.value());
+                break;
+            case State::TxQuad:
+                glfwmod::tests::txquad::run();
+                break;
+            case State::BreakOut:
+                glfwmod::tests::breakout::run();
                 break;
             default:
                 break;
@@ -94,6 +115,8 @@ namespace glfwmod::tests
         glfwmod::tests::texture::term();
         glfwmod::tests::mvp::term();
         glfwmod::tests::cquad::term();
+        glfwmod::tests::txquad::term();
+        glfwmod::tests::breakout::term();
         m_Window.reset();
         glfwm::Window::term();
     }

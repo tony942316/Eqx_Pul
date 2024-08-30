@@ -1,17 +1,13 @@
-module;
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 export module Eqx.GlfwMod.Window;
 
 import <Eqx/std.hpp>;
 
+import <Eqx/TPL/glad/glad.hpp>;
+import <Eqx/TPL/glfw/glfw.hpp>;
+import <Eqx/TPL/glm/glm.hpp>;
+
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
-
-import <glm/glm.hpp>;
-import <glm/gtc/matrix_transform.hpp>;
 
 import Eqx.GlfwMod.Mouse;
 import Eqx.GlfwMod.Keyboard;

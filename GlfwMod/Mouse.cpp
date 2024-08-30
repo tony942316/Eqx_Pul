@@ -1,14 +1,11 @@
-module;
-
-#include <GLFW/glfw3.h>
-
 export module Eqx.GlfwMod.Mouse;
 
 import <Eqx/std.hpp>;
 
+import <Eqx/TPL/glfw/glfw.hpp>;
+
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
-
 
 namespace glfwm::mouse
 {
@@ -69,7 +66,7 @@ namespace glfwm::mouse
             double xpos, double ypos) noexcept
         {
             m_Position = eqx::Point<float>{static_cast<float>(xpos),
-                static_cast<float>(ypos)};
+                -1.0f * static_cast<float>(ypos)};
         }
 
         inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
