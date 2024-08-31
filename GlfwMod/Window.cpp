@@ -55,6 +55,8 @@ export namespace glfwm
 
         [[nodiscard]] inline int getHeight() const noexcept;
 
+        [[nodiscard]] inline float getDeltaTime() const noexcept;
+
         static inline void init() noexcept;
 
         static inline void term() noexcept;
@@ -63,6 +65,7 @@ export namespace glfwm
         GLFWwindow* m_Window;
         int m_Width;
         int m_Height;
+        float m_DT;
         std::string m_Name;
     };
 }
@@ -156,17 +159,21 @@ namespace glfwm
         requires requires(const T& f) { std::invoke(f); }
     inline void Window::run(const T& func) noexcept
     {
+        auto timer = eqx::StopWatch{};
 
         std::cout << "Error Num: " << glGetError() << '\n';
 
         while (!glfwWindowShouldClose(m_Window))
         {
+            timer.start();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             std::invoke(func);
 
             glfwSwapBuffers(m_Window);
             glfwPollEvents();
+            timer.stop();
+            m_DT = static_cast<float>(timer.getSeconds());
         }
     }
 
@@ -198,6 +205,11 @@ namespace glfwm
     [[nodiscard]] inline int Window::getHeight() const noexcept
     {
         return m_Height;
+    }
+
+    [[nodiscard]] inline float Window::getDeltaTime() const noexcept
+    {
+        return m_DT;
     }
 
     inline void Window::init() noexcept

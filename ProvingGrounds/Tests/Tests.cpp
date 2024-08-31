@@ -104,7 +104,7 @@ namespace glfwmod::tests
                 glfwmod::tests::txquad::run();
                 break;
             case State::BreakOut:
-                glfwmod::tests::breakout::run();
+                glfwmod::tests::breakout::run(m_Window.value());
                 break;
             default:
                 break;
