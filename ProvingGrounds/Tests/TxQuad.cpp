@@ -1,36 +1,36 @@
-export module GlfwMod.Tests.TxQuad;
+export module Eqx.Pul.Tests.TxQuad;
 
 import <Eqx/std.hpp>;
 
 import <Eqx/TPL/glm/glm.hpp>;
 
 import Eqx.Lib;
-import Eqx.GlfwMod;
+import Eqx.Pul;
 
-namespace glfwmod::tests::txquad
+namespace tests::txquad
 {
-    constinit auto m_Shader = std::optional<glfwm::Shader>{};
-    constinit auto m_Texture = std::optional<glfwm::Texture>{};
-    constinit auto m_TxQuad = glfwm::TxQuad{};
+    constinit auto m_Shader = std::optional<eqx::Shader>{};
+    constinit auto m_Texture = std::optional<eqx::Texture>{};
+    constinit auto m_TxQuad = eqx::TxQuad{};
 
     export inline void run() noexcept;
-    export inline void init(const glfwm::Window& window) noexcept;
+    export inline void init(const eqx::Window& window) noexcept;
     export inline void term() noexcept;
 }
 
-namespace glfwmod::tests::txquad
+namespace tests::txquad
 {
     inline void run() noexcept
     {
-        glfwm::renderer::draw(m_Shader.value(), m_TxQuad);
-        m_TxQuad.setPos(glfwm::mouse::getPosition());
+        eqx::renderer::draw(m_Shader.value(), m_TxQuad);
+        m_TxQuad.setPos(eqx::mouse::getPosition());
     }
 
-    inline void init(const glfwm::Window& window) noexcept
+    inline void init(const eqx::Window& window) noexcept
     {
         m_Texture.emplace("Resources/Textures/BrickWall.png"sv);
 
-        m_Shader.emplace(glfwm::Shader::parse(
+        m_Shader.emplace(eqx::Shader::parse(
             "Resources/Shaders/TxQuad/vs.glsl"sv,
             "Resources/Shaders/TxQuad/fs.glsl"sv));
 

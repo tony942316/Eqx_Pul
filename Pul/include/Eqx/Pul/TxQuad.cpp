@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.TxQuad;
+export module Eqx.Pul.TxQuad;
 
 import <Eqx/std.hpp>;
 
@@ -8,9 +8,9 @@ import <Eqx/TPL/glm/glm.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-import Eqx.GlfwMod.Texture;
+import Eqx.Pul.Texture;
 
-export namespace glfwm
+export namespace eqx
 {
     class TxQuad
     {
@@ -46,7 +46,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline void TxQuad::setRect(const eqx::Rectangle<float>& rect) noexcept
     {

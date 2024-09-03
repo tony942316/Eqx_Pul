@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Shader;
+export module Eqx.Pul.Shader;
 
 import <Eqx/std.hpp>;
 
@@ -8,7 +8,7 @@ import <Eqx/TPL/glm/glm.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-export namespace glfwm
+export namespace eqx
 {
     class Shader
     {
@@ -38,7 +38,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline Shader::Shader(std::string_view vs, std::string_view fs) noexcept
         :

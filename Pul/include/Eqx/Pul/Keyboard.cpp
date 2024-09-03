@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Keyboard;
+export module Eqx.Pul.Keyboard;
 
 import <Eqx/std.hpp>;
 
@@ -7,10 +7,8 @@ import <Eqx/TPL/glfw/glfw.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-namespace glfwm::keyboard
+namespace eqx::keyboard
 {
-    using namespace eqx::literals;
-
     export
     {
         enum class State : char
@@ -88,11 +86,11 @@ namespace glfwm::keyboard
             });
 }
 
-namespace glfwm::keyboard
+namespace eqx::keyboard
 {
-        inline void buttonCallback([[maybe_unused]] GLFWwindow* window, int key,
-            [[maybe_unused]] int scancode, int action,
-            [[maybe_unused]] int mods) noexcept
+    inline void buttonCallback([[maybe_unused]] GLFWwindow* window, int key,
+        [[maybe_unused]] int scancode, int action,
+        [[maybe_unused]] int mods) noexcept
     {
         if (action == GLFW_REPEAT)
         {

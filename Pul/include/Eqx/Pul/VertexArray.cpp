@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.VertexArray;
+export module Eqx.Pul.VertexArray;
 
 import <Eqx/std.hpp>;
 
@@ -7,7 +7,7 @@ import <Eqx/TPL/glad/glad.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-export namespace glfwm
+export namespace eqx
 {
     class VertexArray
     {
@@ -36,7 +36,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline VertexArray::VertexArray(std::span<unsigned int> attribs) noexcept
     {

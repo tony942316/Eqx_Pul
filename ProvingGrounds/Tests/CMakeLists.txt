@@ -11,7 +11,7 @@ target_sources(Tests
         Texture.cpp
         TxQuad.cpp)
 target_compile_features(Tests PUBLIC cxx_std_20)
-target_link_libraries(Tests PRIVATE GlfwMod Eqx_Lib Eqx_TPL)
+target_link_libraries(Tests PRIVATE Eqx_Pul Eqx_Lib Eqx_TPL)
 
 set_target_properties(Tests PROPERTIES
     CXX_STANDARD_REQUIRED On

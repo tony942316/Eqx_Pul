@@ -2,13 +2,13 @@ import <Eqx/std.hpp>;
 
 import Eqx.Lib;
 
-import GlfwMod.Tests;
+import Eqx.Pul.Tests;
 
 int main()
 {
     std::cout << "Start:\n\n"sv;
 
-    glfwmod::tests::run();
+    tests::run();
 
     std::cout << "\nEnd:\n"sv;
     return 0;

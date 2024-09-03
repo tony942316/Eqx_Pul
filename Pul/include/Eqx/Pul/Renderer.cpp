@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Renderer;
+export module Eqx.Pul.Renderer;
 
 import <Eqx/std.hpp>;
 
@@ -7,17 +7,15 @@ import <Eqx/TPL/glad/glad.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-import Eqx.GlfwMod.Window;
-import Eqx.GlfwMod.Shader;
-import Eqx.GlfwMod.VertexArray;
-import Eqx.GlfwMod.Texture;
-import Eqx.GlfwMod.CQuad;
-import Eqx.GlfwMod.TxQuad;
+import Eqx.Pul.Window;
+import Eqx.Pul.Shader;
+import Eqx.Pul.VertexArray;
+import Eqx.Pul.Texture;
+import Eqx.Pul.CQuad;
+import Eqx.Pul.TxQuad;
 
-export namespace glfwm::renderer
+export namespace eqx::renderer
 {
-    using namespace eqx::literals;
-
     inline void draw(const Shader& shader,
         const VertexArray& vertexArray) noexcept;
 
@@ -29,7 +27,7 @@ export namespace glfwm::renderer
     inline void draw(const Shader& shader, const TxQuad& quad) noexcept;
 }
 
-namespace glfwm::renderer
+namespace eqx::renderer
 {
     inline void draw(const Shader& shader,
         const VertexArray& vertexArray) noexcept
@@ -45,7 +43,7 @@ namespace glfwm::renderer
     inline void draw(const Shader& shader, const VertexArray& vertexArray,
         const Texture& texture) noexcept
     {
-        glfwm::Texture::enableSlot(0U);
+        eqx::Texture::enableSlot(0U);
         texture.enable();
 
         shader.enable();

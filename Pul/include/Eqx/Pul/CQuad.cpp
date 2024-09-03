@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.CQuad;
+export module Eqx.Pul.CQuad;
 
 import <Eqx/std.hpp>;
 
@@ -8,7 +8,7 @@ import <Eqx/TPL/glm/glm.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-export namespace glfwm
+export namespace eqx
 {
     class CQuad
     {
@@ -46,7 +46,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline void CQuad::setRect(const eqx::Rectangle<float>& rect) noexcept
     {

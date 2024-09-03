@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-message(STATUS "glfwMod: Proving Grounds")
+message(STATUS "Eqx_Pul: Proving Grounds")
 
 add_subdirectory(Tests/)
 
@@ -18,7 +18,3 @@ add_custom_command(TARGET ProvingGrounds PRE_BUILD
         ${CMAKE_CURRENT_SOURCE_DIR}/Resources
         $<TARGET_FILE_DIR:ProvingGrounds>/Resources
     COMMENT "Copying Resources!")
-
-#add_custom_command(TARGET ProvingGrounds PRE_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E echo "Genxpr: $<TARGET_FILE_DIR:ProvingGrounds>"
-#    COMMENT "Printing Generator Expression")

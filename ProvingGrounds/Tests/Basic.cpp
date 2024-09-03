@@ -1,28 +1,28 @@
-export module GlfwMod.Tests.Basic;
+export module Eqx.Pul.Tests.Basic;
 
 import <Eqx/std.hpp>;
 
 import Eqx.Lib;
-import Eqx.GlfwMod;
+import Eqx.Pul;
 
-namespace glfwmod::tests::basic
+namespace tests::basic
 {
-    constinit auto m_Shader = std::optional<glfwm::Shader>{};
-    constinit auto m_Vertices = std::optional<glfwm::VertexArray>{};
+    constinit auto m_Shader = std::optional<eqx::Shader>{};
+    constinit auto m_Vertices = std::optional<eqx::VertexArray>{};
 
-    export inline void run(glfwm::Window& window) noexcept;
+    export inline void run(eqx::Window& window) noexcept;
     export inline void init() noexcept;
     export inline void term() noexcept;
 }
 
-namespace glfwmod::tests::basic
+namespace tests::basic
 {
-    inline void run(glfwm::Window& window) noexcept
+    inline void run(eqx::Window& window) noexcept
     {
         auto name = std::string{};
-        name += glfwm::mouse::getPosition().toString();
+        name += eqx::mouse::getPosition().toString();
         name += " : "sv;
-        if (glfwm::keyboard::isPressed('A'))
+        if (eqx::keyboard::isPressed('A'))
         {
             name += " \'A\' Pressed!";
         }
@@ -32,7 +32,7 @@ namespace glfwmod::tests::basic
         }
         window.setName(name);
 
-        glfwm::renderer::draw(m_Shader.value(), m_Vertices.value());
+        eqx::renderer::draw(m_Shader.value(), m_Vertices.value());
     }
 
     inline void init() noexcept
@@ -55,7 +55,7 @@ namespace glfwmod::tests::basic
         m_Vertices->addVertices(vertices);
         m_Vertices->addIndices(indices);
 
-        m_Shader.emplace(glfwm::Shader::parse(
+        m_Shader.emplace(eqx::Shader::parse(
             "Resources/Shaders/Basic/vs.glsl"sv,
             "Resources/Shaders/Basic/fs.glsl"sv));
     }

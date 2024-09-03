@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Window;
+export module Eqx.Pul.Window;
 
 import <Eqx/std.hpp>;
 
@@ -9,11 +9,11 @@ import <Eqx/TPL/glm/glm.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-import Eqx.GlfwMod.Mouse;
-import Eqx.GlfwMod.Keyboard;
-import Eqx.GlfwMod.Shader;
+import Eqx.Pul.Mouse;
+import Eqx.Pul.Keyboard;
+import Eqx.Pul.Shader;
 
-export namespace glfwm
+export namespace eqx
 {
     class Window
     {
@@ -70,7 +70,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline Window::Window(int width, int height, std::string_view name) noexcept
         :
@@ -150,9 +150,9 @@ namespace glfwm
         std::cout << "Max Textures: "sv
             << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << '\n';
 
-        setMouseMoveCallback(glfwm::mouse::moveCallback);
-        setMouseButtonCallback(glfwm::mouse::buttonCallback);
-        setKeyboardButtonCallback(glfwm::keyboard::buttonCallback);
+        setMouseMoveCallback(eqx::mouse::moveCallback);
+        setMouseButtonCallback(eqx::mouse::buttonCallback);
+        setKeyboardButtonCallback(eqx::keyboard::buttonCallback);
     }
 
     template <typename T>

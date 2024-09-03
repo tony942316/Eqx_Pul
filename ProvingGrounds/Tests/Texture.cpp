@@ -1,26 +1,26 @@
-export module GlfwMod.Tests.Texture;
+export module Eqx.Pul.Tests.Texture;
 
 import <Eqx/std.hpp>;
 
 import Eqx.Lib;
-import Eqx.GlfwMod;
+import Eqx.Pul;
 
-namespace glfwmod::tests::texture
+namespace tests::texture
 {
-    constinit auto m_Shader = std::optional<glfwm::Shader>{};
-    constinit auto m_Vertices = std::optional<glfwm::VertexArray>{};
-    constinit auto m_Texture = std::optional<glfwm::Texture>{};
+    constinit auto m_Shader = std::optional<eqx::Shader>{};
+    constinit auto m_Vertices = std::optional<eqx::VertexArray>{};
+    constinit auto m_Texture = std::optional<eqx::Texture>{};
 
     export inline void run() noexcept;
     export inline void init() noexcept;
     export inline void term() noexcept;
 }
 
-namespace glfwmod::tests::texture
+namespace tests::texture
 {
     inline void run() noexcept
     {
-        glfwm::renderer::draw(m_Shader.value(), m_Vertices.value(),
+        eqx::renderer::draw(m_Shader.value(), m_Vertices.value(),
             m_Texture.value());
     }
 
@@ -44,7 +44,7 @@ namespace glfwmod::tests::texture
         m_Vertices->addVertices(vertices);
         m_Vertices->addIndices(indices);
 
-        m_Shader.emplace(glfwm::Shader::parse(
+        m_Shader.emplace(eqx::Shader::parse(
             "Resources/Shaders/Texture/vs.glsl"sv,
             "Resources/Shaders/Texture/fs.glsl"sv));
 

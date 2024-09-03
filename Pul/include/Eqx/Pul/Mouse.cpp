@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Mouse;
+export module Eqx.Pul.Mouse;
 
 import <Eqx/std.hpp>;
 
@@ -7,10 +7,8 @@ import <Eqx/TPL/glfw/glfw.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-namespace glfwm::mouse
+namespace eqx::mouse
 {
-    using namespace eqx::literals;
-
     static_assert(GLFW_RELEASE == 0);
     static_assert(GLFW_PRESS == 1);
 
@@ -60,44 +58,44 @@ namespace glfwm::mouse
 #endif // EQX_MSVC
 }
 
-namespace glfwm::mouse
+namespace eqx::mouse
 {
-        inline void moveCallback([[maybe_unused]] GLFWwindow* window,
-            double xpos, double ypos) noexcept
-        {
-            m_Position = eqx::Point<float>{static_cast<float>(xpos),
-                -1.0f * static_cast<float>(ypos)};
-        }
+    inline void moveCallback([[maybe_unused]] GLFWwindow* window,
+        double xpos, double ypos) noexcept
+    {
+        m_Position = eqx::Point<float>{static_cast<float>(xpos),
+            -1.0f * static_cast<float>(ypos)};
+    }
 
-        inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
-            int button, int action, [[maybe_unused]] int mods) noexcept
-        {
-            Button myButton = static_cast<Button>(button);
-            State myState = static_cast<State>(action);
+    inline void buttonCallback([[maybe_unused]] GLFWwindow* window,
+        int button, int action, [[maybe_unused]] int mods) noexcept
+    {
+        Button myButton = static_cast<Button>(button);
+        State myState = static_cast<State>(action);
 
-            m_ButtonState.at(static_cast<std::size_t>(myButton)) = myState;
-            editButtonPosition(myButton, myState) = getPosition();
-        }
+        m_ButtonState.at(static_cast<std::size_t>(myButton)) = myState;
+        editButtonPosition(myButton, myState) = getPosition();
+    }
 
-        [[nodiscard]] inline eqx::Point<float> getPosition(Button button,
-            State state) noexcept
-        {
-            return button == Button::None
-                ? m_Position
-                : editButtonPosition(button, state);
-        }
+    [[nodiscard]] inline eqx::Point<float> getPosition(Button button,
+        State state) noexcept
+    {
+        return button == Button::None
+            ? m_Position
+            : editButtonPosition(button, state);
+    }
 
-        [[nodiscard]] inline State getState(
-            Button button) noexcept
-        {
-            return m_ButtonState.at(static_cast<std::size_t>(button));
-        }
+    [[nodiscard]] inline State getState(
+        Button button) noexcept
+    {
+        return m_ButtonState.at(static_cast<std::size_t>(button));
+    }
 
-        [[nodiscard]] inline eqx::Point<float>& editButtonPosition(
-            Button button, State state) noexcept
-        {
-            return m_ButtonPosition.at(static_cast<std::size_t>(
-                (2 * static_cast<std::size_t>(button))
-                + static_cast<std::size_t>(state)));
-        }
+    [[nodiscard]] inline eqx::Point<float>& editButtonPosition(
+        Button button, State state) noexcept
+    {
+        return m_ButtonPosition.at(static_cast<std::size_t>(
+            (2 * static_cast<std::size_t>(button))
+            + static_cast<std::size_t>(state)));
+    }
 }

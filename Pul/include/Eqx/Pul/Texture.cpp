@@ -1,4 +1,4 @@
-export module Eqx.GlfwMod.Texture;
+export module Eqx.Pul.Texture;
 
 import <Eqx/std.hpp>;
 
@@ -8,7 +8,7 @@ import <Eqx/TPL/stb/stb_image.hpp>;
 import <Eqx/Lib/Macros.hpp>;
 import Eqx.Lib;
 
-export namespace glfwm
+export namespace eqx
 {
     class Texture
     {
@@ -33,7 +33,7 @@ export namespace glfwm
     };
 }
 
-namespace glfwm
+namespace eqx
 {
     inline Texture::Texture(std::string_view texPath) noexcept
     {
