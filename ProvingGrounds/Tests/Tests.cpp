@@ -11,6 +11,7 @@ import Eqx.Pul.Tests.MVP;
 import Eqx.Pul.Tests.CQuad;
 import Eqx.Pul.Tests.TxQuad;
 import Eqx.Pul.Tests.BreakOut;
+import Eqx.Pul.Tests.Text;
 
 namespace tests
 {
@@ -22,6 +23,7 @@ namespace tests
         CQuad,
         TxQuad,
         BreakOut,
+        Text,
         None
     };
 
@@ -37,7 +39,7 @@ namespace tests
     {
         eqx::Window::init();
 
-        m_Window.emplace(680, 400, "Glfwm Proving Grounds"sv);
+        m_Window.emplace(680, 400, "Eqx_Pul Proving Grounds"sv);
         m_Window->makeCurrent();
 
         tests::basic::init();
@@ -46,10 +48,11 @@ namespace tests
         tests::cquad::init(m_Window.value());
         tests::txquad::init(m_Window.value());
         tests::breakout::init(m_Window.value());
+        //tests::text::init(m_Window.value());
 
         m_Window->run([]()
         {
-            m_Window->setName("Glfwm Proving Grounds"sv);
+            m_Window->setName("Eqx_Pul Proving Grounds"sv);
 
             if (eqx::keyboard::isPressed(eqx::keyboard::Key::N0))
             {
@@ -79,6 +82,10 @@ namespace tests
             {
                 m_State = State::BreakOut;
             }
+            else if (eqx::keyboard::isPressed(eqx::keyboard::Key::N7))
+            {
+                //m_State = State::Text;
+            }
             else if (eqx::keyboard::isPressed(eqx::keyboard::Key::Escape))
             {
                 m_Window->close();
@@ -106,6 +113,8 @@ namespace tests
             case State::BreakOut:
                 tests::breakout::run(m_Window.value());
                 break;
+            case State::Text:
+                //tests::text::run(m_Window.value());
             default:
                 break;
             }
@@ -117,6 +126,7 @@ namespace tests
         tests::cquad::term();
         tests::txquad::term();
         tests::breakout::term();
+        //tests::text::term();
         m_Window.reset();
         eqx::Window::term();
     }

@@ -9,6 +9,7 @@ target_sources(Tests
         CQuad.cpp
         MVP.cpp
         Texture.cpp
+	Text.cpp
         TxQuad.cpp)
 target_compile_features(Tests PUBLIC cxx_std_20)
 target_link_libraries(Tests PRIVATE Eqx_Pul Eqx_Lib Eqx_TPL)
