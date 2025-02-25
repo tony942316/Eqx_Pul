@@ -10,9 +10,12 @@
 
 Pulsar is a c++20 framework for video game development, using modern c++ we
 strive to provide a safe intuitive environment to build performant games.
+Pulsar uses CMake and c++20 modules to ensure a fast and simple build process
+and by using windowing and polygon abstractions we make rendering easy.
 
 ![Alt text](Image1.png)
 ![Alt text](Image2.png)
+![Alt text](Image3.png)
 
 ## Adding Pulsar To Your Project <a name="adding"></a>
 
@@ -39,3 +42,24 @@ target_link_libraries(Main PRIVATE Tests Eqx_Lib)
 ```
 
 ## Using Pulsar <a name="using"></a>
+
+Here is a minimum example to get started with
+
+```cpp
+import Eqx.Pul;
+
+void run()
+{
+    auto window = eqx::Window{ 680, 400, "Eqx_Pul Proving Grounds"sv };
+    m_Window->makeCurrent();
+}
+
+int main()
+{
+    eqx::Window::init();
+
+    run();
+
+    eqx::Window::term();
+}
+```
